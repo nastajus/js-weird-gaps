@@ -24,30 +24,16 @@ Import Method 1
         user1.FirstName("Amanda").LastName("Davy");
         users.push(user1);
 
-        //nvm don't need an id to access an inner ul, just access the single ul directly.
-        //let ul = window.document.getElementById("top"); 
         let ul = document.getElementsByTagName("ul")[0];
 
-        //yucky inner (supposedly?) private members with backing fields shouldn't be accessed this way...
-        //ul.innerHTML += '<li>' + user1._last + user1._first + '</li>' 
-
-        //yucky innerHTML did nothing, before i had [0] on the HTMLCollection return... derp
-        //ul.innerHTML += '<li>' + user1.Name() + '</li>' 
+        //DOM change approach 1 -- innerHTML:
         ul.innerHTML += '<li>' + user1.Name() + '</li>' 
-        
-        //alternatively, i can use `createElement` instead of `innerHTML`...
 
-        //MDN page warned this wouldn't work as expected... it skips the bullet... 
-        //let li = document.createElement("li").appendChild(document.createTextNode(user1.Name()));
-
-        //okay, so, i confirmed any order of appending works, so that's nice. thank you js devs.
+        //DOM change approach 2 -- createElement:
         let li = document.createElement("li");
         ul.appendChild(li);
-
         let tn = document.createTextNode(user1.Name());
         li.appendChild(tn);
-
-        // console.log(user1.Name())
 
     }
 </script>
