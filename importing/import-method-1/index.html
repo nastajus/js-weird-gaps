@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="script-sample-1.js"></script>
+    <script src="script-sample-2.js"></script>
+</head>
+<body style="background-color: darkblue; color: lightblue">
+
+Import Method 1
+<div id="top">
+    <ul>
+    </ul>
+</div>
+
+<script>
+    //Import Method 1:   
+    //iterate adding elements to page visibly, because is historically the first way vanilla js was used, i suppose.
+
+    //... ugh ... todo compare against jquery's version pros/cons.
+    window.onload = function() {
+
+        let users = [];
+        let user1 = new User();
+        user1.FirstName("Amanda").LastName("Davy");
+        users.push(user1);
+
+        //nvm don't need an id to access an inner ul, just access the single ul directly.
+        //let ul = window.document.getElementById("top"); 
+        let ul = document.getElementsByTagName("ul")[0];
+
+        //yucky inner (supposedly?) private members with backing fields shouldn't be accessed this way...
+        //ul.innerHTML += '<li>' + user1._last + user1._first + '</li>' 
+
+        //yucky innerHTML did nothing, before i had [0] on the HTMLCollection return... derp
+        //ul.innerHTML += '<li>' + user1.Name() + '</li>' 
+        ul.innerHTML += '<li>' + user1.Name() + '</li>' 
+        
+        //alternatively, i can use `createElement` instead of `innerHTML`...
+
+        //MDN page warned this wouldn't work as expected... it skips the bullet... 
+        //let li = document.createElement("li").appendChild(document.createTextNode(user1.Name()));
+
+        //okay, so, i confirmed any order of appending works, so that's nice. thank you js devs.
+        let li = document.createElement("li");
+        ul.appendChild(li);
+
+        let tn = document.createTextNode(user1.Name());
+        li.appendChild(tn);
+
+        // console.log(user1.Name())
+
+    }
+</script>
+
+</body>
+</html>
+
